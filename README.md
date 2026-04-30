@@ -1,60 +1,46 @@
-🚀 Team Task Manager
 
-A modern full-stack Team Task Management platform built with the MERN stack. This application helps teams manage projects, assign tasks, track progress, and securely collaborate through authentication-protected workflows.
+📌 Team Task Manager (Full Stack)
 
-Designed with a clean SaaS-style dashboard UI and secure backend architecture, this project demonstrates real-world full-stack development concepts including JWT authentication, protected routes, REST APIs, MongoDB relationships, and responsive frontend design.
+A full-stack role-based task management system where users can create projects, manage teams, assign tasks, and track progress with secure authentication and real-time status updates.
 
-✨ Features
-🔐 Authentication & Security
-User Signup & Login
-JWT-based Authentication
-Protected Backend APIs
-Protected Frontend Routes
-Secure Password Hashing using bcrypt
-Logout Functionality
-📁 Project Management
-Create Projects
-View All Projects
-Project Ownership Tracking
-Team Member Assignment Support
-✅ Task Management
-Create Tasks
-Assign Tasks to Users
-Update Task Status
-Task Status Tracking
-Pending
-In Progress
-Completed
-🎨 Frontend Features
-Responsive Dashboard UI
-SaaS-style Design
-Tailwind CSS Styling
-Dynamic Project Rendering
-API Integration with Axios
-⚙️ Backend Features
-RESTful API Architecture
-Express.js Middleware
-MongoDB Integration
-Mongoose Relationships
-Modular Backend Structure
-🛠 Tech Stack
-Frontend
-React.js
-Vite
-Tailwind CSS
-Axios
-React Router DOM
+🚀 Features
+🔐 Authentication
+Signup / Login using JWT
+Secure password hashing (bcrypt)
+Protected frontend & backend routes
+Logout functionality
+👥 Project Management
+Create projects
+View all projects
+Project ownership tracking
+Team member assignment support
+📋 Task Management
+Create tasks
+Assign tasks to users
+Update task status
+pending
+in-progress
+completed
+📊 Dashboard
+View all projects
+View all tasks
+Task status tracking
+Dynamic project count
+Responsive dashboard UI
+🛠️ Tech Stack
 Backend
 Node.js
 Express.js
+MongoDB + Mongoose
 JWT Authentication
 bcryptjs
-Middleware Authentication
-Database
-MongoDB Atlas
-Mongoose ODM
-📂 Project Structure
-project/
+Frontend
+React.js (Vite)
+Axios
+React Router DOM
+Tailwind CSS
+📁 Project Structure
+team-task-manager/
 │
 ├── backend/
 │   ├── config/
@@ -64,9 +50,6 @@ project/
 │   │   ├── authController.js
 │   │   ├── projectController.js
 │   │   └── taskController.js
-│   │
-│   ├── middleware/
-│   │   └── authMiddleware.js
 │   │
 │   ├── models/
 │   │   ├── User.js
@@ -79,9 +62,12 @@ project/
 │   │   ├── taskRoutes.js
 │   │   └── testRoutes.js
 │   │
-│   ├── .env
+│   ├── middleware/
+│   │   └── authMiddleware.js
+│   │
+│   ├── server.js
 │   ├── package.json
-│   └── server.js
+│   └── .env
 │
 ├── frontend/
 │   ├── src/
@@ -100,114 +86,123 @@ project/
 │   │   ├── main.jsx
 │   │   └── index.css
 │   │
-│   └── package.json
+│   ├── package.json
+│   └── index.html
 │
 ├── .gitignore
 └── README.md
-⚡ Installation & Setup
+⚙️ Installation & Setup
 1️⃣ Clone Repository
 git clone https://github.com/Rajan99Kumar/team-task-manager.git
 cd team-task-manager
-🔧 Backend Setup
-Go to backend folder
+2️⃣ Backend Setup
 cd backend
-Install dependencies
+
+Install dependencies:
+
 npm install
-Create .env file
-PORT=5000
+
+Create .env file:
 
 MONGO_URI=your_mongodb_connection_string
-Run backend server
+JWT_SECRET=your_secret_key
+PORT=5000
+
+Run backend:
+
 npm run dev
 
-Backend will run on:
+Server runs on:
 
 http://localhost:5000
-🎨 Frontend Setup
-Open new terminal
+3️⃣ Frontend Setup
 cd frontend
-Install dependencies
+
+Install dependencies:
+
 npm install
-Start frontend
+
+Create .env file:
+
+VITE_API_URL=http://localhost:5000/api
+
+Run frontend:
+
 npm run dev
 
-Frontend will run on:
+App runs on:
 
 http://localhost:5173
-🔑 API Endpoints
-Authentication APIs
+🔗 API Endpoints
+🔐 Auth
 Method	Endpoint	Description
-POST	/api/auth/register	Register User
-POST	/api/auth/login	Login User
-Project APIs
+POST	/api/auth/register	Register user
+POST	/api/auth/login	Login user
+📁 Projects
 Method	Endpoint	Description
-GET	/api/projects	Fetch All Projects
-POST	/api/projects	Create Project
-Task APIs
+POST	/api/projects	Create project
+GET	/api/projects	Get all projects
+📋 Tasks
 Method	Endpoint	Description
-GET	/api/tasks	Fetch All Tasks
-POST	/api/tasks	Create Task
-PUT	/api/tasks/:id	Update Task Status
-🔒 Authentication Flow
-User Signup/Login
-        ↓
-JWT Token Generated
-        ↓
-Token Stored in Local Storage
-        ↓
-Protected Routes Access
-        ↓
-Secure API Requests
-📸 Screenshots
-Dashboard
+POST	/api/tasks	Create task
+GET	/api/tasks	Get all tasks
+PUT	/api/tasks/:id	Update task status
+🔐 Authentication Flow
+User signs up / logs in
+Backend returns JWT token
+Token stored in localStorage
+Protected routes validate token
+All API requests use token in headers
 
-Add screenshot here
+Example:
 
-Login Page
-
-Add screenshot here
-
-Signup Page
-
-Add screenshot here
-
-Project Management
-
-Add screenshot here
-
-🚀 Future Improvements
-Drag & Drop Kanban Board
-Real-time Notifications
-Team Collaboration Chat
+Authorization: Bearer token
+📊 Dashboard Features
+View all projects
+Create projects
+View all tasks
+Create tasks
+Update task status
+Dynamic dashboard cards
+🧪 Testing (Thunder Client / Postman)
+Signup
+POST /api/auth/register
+{
+  "name": "Rajan",
+  "email": "rajan@gmail.com",
+  "password": "123456"
+}
+Login
+POST /api/auth/login
+{
+  "email": "rajan@gmail.com",
+  "password": "123456"
+}
+🚀 Deployment
+Backend (Railway / Render)
+Add environment variables
+Deploy Node.js backend
+Frontend (Vercel / Netlify)
+npm run build
+📌 Environment Variables
+Backend
+MONGO_URI=
+JWT_SECRET=
+PORT=
+Frontend
+VITE_API_URL=
+🎯 Future Improvements
+Drag & Drop Task Board (Trello style)
+Team Member Roles
+Notifications System
 File Attachments
-Task Deadlines & Reminders
-Dark Mode
+Real-time Updates (Socket.io)
 Analytics Dashboard
-Email Notifications
-Role-Based Permissions
-Activity Logs
-💡 Why This Project Stands Out
-
-This project demonstrates strong full-stack engineering concepts commonly used in modern SaaS products:
-
-Secure Authentication Systems
-REST API Development
-Database Relationships
-Frontend & Backend Integration
-State Management
-Protected Route Handling
-Responsive UI Design
-Scalable Project Structure
+Dark Mode
+Task Due Dates & Reminders
 👨‍💻 Author
-
 Rajan Kumar
 
-GitHub: @Rajan99Kumar
+GitHub:
 
-⭐ Support
-
-If you found this project useful, consider giving it a star on GitHub.
-
-📄 License
-
-This project is open-source and available under the MIT License.
+https://github.com/Rajan99Kumar
