@@ -203,6 +203,5 @@ Task Due Dates & Reminders
 👨‍💻 Author
 Rajan Kumar
 
-GitHub:
-
-https://github.com/Rajan99Kumar
+GitHub: https://github.com/Rajan99Kumar
+Email : rajan993167@gmail.com
