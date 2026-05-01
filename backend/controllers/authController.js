@@ -36,10 +36,12 @@ exports.register = async (req, res) => {
       user,
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
+  console.log(error);
+
+  res.status(500).json({
+    message: error.message,
+  });
+}
 };
 
 exports.login = async (req, res) => {
@@ -70,8 +72,10 @@ exports.login = async (req, res) => {
       user,
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
+  console.log(error);
+
+  res.status(500).json({
+    message: error.message,
+  });
+}
 };
