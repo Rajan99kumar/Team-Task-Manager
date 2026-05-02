@@ -18,6 +18,7 @@ function App() {
   const fetchProjects = async () => {
     try {
       const res = await API.get("/projects");
+
       setProjects(res.data);
     } catch (error) {
       console.log(error);
@@ -29,11 +30,13 @@ function App() {
       await API.post("/projects", {
         title,
         description,
+        status,
         members: [],
       });
 
       setTitle("");
       setDescription("");
+      setStatus("Pending");
 
       fetchProjects();
     } catch (error) {
@@ -52,39 +55,30 @@ function App() {
   };
 
   const editProject = (project) => {
-  setEditingId(project._id);
+    setEditingId(project._id);
 
-  setTitle(project.title);
+    setTitle(project.title);
 
-  setDescription(project.description);
+    setDescription(project.description);
 
-  setStatus(project.status);
-};
+    setStatus(project.status);
+  };
 
   const updateProject = async () => {
     try {
       await API.put(`/projects/${editingId}`, {
-  title,
-  description,
-  status,
-});
-
-      setEditingId(null);
-      setTitle("");
-      setDescription("");
-      setStatus("Pending");
-
-      fetchProjects();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const updateStatus = async (id, status) => {
-    try {
-      await API.put(`/projects/${id}`, {
+        title,
+        description,
         status,
       });
+
+      setEditingId(null);
+
+      setTitle("");
+
+      setDescription("");
+
+      setStatus("Pending");
 
       fetchProjects();
     } catch (error) {
@@ -102,6 +96,7 @@ function App() {
         </h1>
 
         {/* Create / Update Form */}
+
         <div className="backdrop-blur-xl bg-white/10 border border-white/20 p-8 rounded-3xl shadow-2xl mb-10">
           <h2 className="text-3xl font-bold mb-6">
             {editingId
@@ -124,23 +119,42 @@ function App() {
             onChange={(e) => setDescription(e.target.value)}
           />
 
-          <select
-  value={status}
-  onChange={(e) => setStatus(e.target.value)}
-  className="w-full p-4 rounded-2xl bg-white/20 border border-white/20 mb-5 text-white"
->
-  <option value="Pending" className="text-black">
-    Pending
-  </option>
+          {/* Status Dropdown */}
 
-  <option value="Ongoing" className="text-black">
-    Ongoing
-  </option>
+          <div className="mb-5">
+            <label className="block text-white text-lg font-semibold mb-3">
+              Status
+            </label>
 
-  <option value="Completed" className="text-black">
-    Completed
-  </option>
-</select>
+            <select
+              value={status}
+              onChange={(e) =>
+                setStatus(e.target.value)
+              }
+              className="w-full p-4 rounded-2xl bg-white/20 border border-white/20 text-white focus:outline-none"
+            >
+              <option
+                value="Pending"
+                className="text-black"
+              >
+                Pending
+              </option>
+
+              <option
+                value="Ongoing"
+                className="text-black"
+              >
+                Ongoing
+              </option>
+
+              <option
+                value="Completed"
+                className="text-black"
+              >
+                Completed
+              </option>
+            </select>
+          </div>
 
           {editingId ? (
             <button
@@ -159,7 +173,8 @@ function App() {
           )}
         </div>
 
-        {/* Projects */}
+        {/* Projects Section */}
+
         <div className="backdrop-blur-xl bg-white/10 border border-white/20 p-8 rounded-3xl shadow-2xl">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold">
@@ -183,25 +198,31 @@ function App() {
                   </h3>
 
                   <span
-  className={`px-3 py-1 rounded-xl text-sm font-semibold ${
-    project.status === "Completed"
-      ? "bg-green-500"
-      : project.status === "Ongoing"
-      ? "bg-blue-500"
-      : "bg-yellow-500"
-  }`}
->
-  {project.status}
-</span>
+                    className={`px-3 py-1 rounded-xl text-sm font-semibold ${
+                      project.status ===
+                      "Completed"
+                        ? "bg-green-500"
+                        : project.status ===
+                          "Ongoing"
+                        ? "bg-blue-500"
+                        : "bg-yellow-500"
+                    }`}
+                  >
+                    {project.status}
+                  </span>
                 </div>
 
                 <p className="text-gray-200 mb-6">
                   {project.description}
                 </p>
+
                 {/* Action Buttons */}
+
                 <div className="flex gap-3">
                   <button
-                    onClick={() => editProject(project)}
+                    onClick={() =>
+                      editProject(project)
+                    }
                     className="bg-gradient-to-r from-cyan-500 to-blue-500 px-5 py-2 rounded-xl font-semibold hover:scale-105 transition"
                   >
                     Edit
