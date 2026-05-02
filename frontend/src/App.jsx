@@ -7,6 +7,7 @@ function App() {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("Pending");
 
   const [editingId, setEditingId] = useState(null);
 
@@ -51,21 +52,27 @@ function App() {
   };
 
   const editProject = (project) => {
-    setEditingId(project._id);
-    setTitle(project.title);
-    setDescription(project.description);
-  };
+  setEditingId(project._id);
+
+  setTitle(project.title);
+
+  setDescription(project.description);
+
+  setStatus(project.status);
+};
 
   const updateProject = async () => {
     try {
       await API.put(`/projects/${editingId}`, {
-        title,
-        description,
-      });
+  title,
+  description,
+  status,
+});
 
       setEditingId(null);
       setTitle("");
       setDescription("");
+      setStatus("Pending");
 
       fetchProjects();
     } catch (error) {
@@ -117,6 +124,24 @@ function App() {
             onChange={(e) => setDescription(e.target.value)}
           />
 
+          <select
+  value={status}
+  onChange={(e) => setStatus(e.target.value)}
+  className="w-full p-4 rounded-2xl bg-white/20 border border-white/20 mb-5 text-white"
+>
+  <option value="Pending" className="text-black">
+    Pending
+  </option>
+
+  <option value="Ongoing" className="text-black">
+    Ongoing
+  </option>
+
+  <option value="Completed" className="text-black">
+    Completed
+  </option>
+</select>
+
           {editingId ? (
             <button
               onClick={updateProject}
@@ -157,54 +182,22 @@ function App() {
                     {project.title}
                   </h3>
 
-                  <span className="px-3 py-1 rounded-xl text-sm bg-white/20">
-                    {project.status}
-                  </span>
+                  <span
+  className={`px-3 py-1 rounded-xl text-sm font-semibold ${
+    project.status === "Completed"
+      ? "bg-green-500"
+      : project.status === "Ongoing"
+      ? "bg-blue-500"
+      : "bg-yellow-500"
+  }`}
+>
+  {project.status}
+</span>
                 </div>
 
                 <p className="text-gray-200 mb-6">
                   {project.description}
                 </p>
-
-                {/* Status Buttons */}
-                <div className="flex gap-2 flex-wrap mb-5">
-                  <button
-                    onClick={() =>
-                      updateStatus(
-                        project._id,
-                        "Pending"
-                      )
-                    }
-                    className="bg-yellow-500 px-3 py-2 rounded-xl text-sm"
-                  >
-                    Pending
-                  </button>
-
-                  <button
-                    onClick={() =>
-                      updateStatus(
-                        project._id,
-                        "Active"
-                      )
-                    }
-                    className="bg-blue-500 px-3 py-2 rounded-xl text-sm"
-                  >
-                    Active
-                  </button>
-
-                  <button
-                    onClick={() =>
-                      updateStatus(
-                        project._id,
-                        "Completed"
-                      )
-                    }
-                    className="bg-green-500 px-3 py-2 rounded-xl text-sm"
-                  >
-                    Completed
-                  </button>
-                </div>
-
                 {/* Action Buttons */}
                 <div className="flex gap-3">
                   <button
