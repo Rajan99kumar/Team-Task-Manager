@@ -7,7 +7,7 @@ function App() {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("Pending");
+  const [status, setStatus] = useState("");
 
   const [editingId, setEditingId] = useState(null);
 
@@ -36,7 +36,7 @@ function App() {
 
       setTitle("");
       setDescription("");
-      setStatus("Pending");
+      setStatus("");
 
       fetchProjects();
     } catch (error) {
@@ -78,7 +78,7 @@ function App() {
 
       setDescription("");
 
-      setStatus("Pending");
+      setStatus("");
 
       fetchProjects();
     } catch (error) {
@@ -121,40 +121,42 @@ function App() {
 
           {/* Status Dropdown */}
 
-          <div className="mb-5">
-            <label className="block text-white text-lg font-semibold mb-3">
-              Status
-            </label>
-
-            <select
-              value={status}
-              onChange={(e) =>
-                setStatus(e.target.value)
-              }
-              className="w-full p-4 rounded-2xl bg-white/20 border border-white/20 text-white focus:outline-none"
+          <select
+            value={status}
+            onChange={(e) =>
+              setStatus(e.target.value)
+            }
+            className="w-full p-4 rounded-2xl bg-white/20 border border-white/20 text-white mb-5 focus:outline-none"
+          >
+            <option
+              value=""
+              disabled
+              className="text-black"
             >
-              <option
-                value="Pending"
-                className="text-black"
-              >
-                Pending
-              </option>
+              Select Project Status
+            </option>
 
-              <option
-                value="Ongoing"
-                className="text-black"
-              >
-                Ongoing
-              </option>
+            <option
+              value="Pending"
+              className="text-black"
+            >
+              Pending
+            </option>
 
-              <option
-                value="Completed"
-                className="text-black"
-              >
-                Completed
-              </option>
-            </select>
-          </div>
+            <option
+              value="Ongoing"
+              className="text-black"
+            >
+              Ongoing
+            </option>
+
+            <option
+              value="Completed"
+              className="text-black"
+            >
+              Completed
+            </option>
+          </select>
 
           {editingId ? (
             <button
@@ -215,8 +217,6 @@ function App() {
                 <p className="text-gray-200 mb-6">
                   {project.description}
                 </p>
-
-                {/* Action Buttons */}
 
                 <div className="flex gap-3">
                   <button
